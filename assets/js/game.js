@@ -4,7 +4,7 @@
 
 
 var playerName = window.prompt("What is your robot's name?");
-var playerHealth = 10;
+var playerHealth = 100;
 var playerAttack = 10;
 var playerMoney = 10;
 
@@ -77,7 +77,7 @@ var fight = function(enemyName) {
 // fight each enemy-robot by looping over them and fighting them one at a time
 var startGame = function() {
     //reset player status
-    playerHealth = 10;
+    playerHealth = 100;
     playerAttack = 10;
     playerMoney = 10;
     
