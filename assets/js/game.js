@@ -4,8 +4,8 @@
 
 
 var playerName = window.prompt("What is your robot's name?");
-var playerHealth = 10;
-var playerAttack = 10;
+var playerHealth = 100;
+var playerAttack = 100;
 var playerMoney = 10;
 
 var enemyNames = ['Roborto', 'Amy Android', 'Robo Trumble'];
@@ -74,35 +74,6 @@ var fight = function(enemyName) {
   }
 };
 
-// fight each enemy-robot by looping over them and fighting them one at a time
-var startGame = function() {
-    //reset player status
-    playerHealth = 10;
-    playerAttack = 10;
-    playerMoney = 10;
-    
-for (var i = 0; i < enemyNames.length; i++) {
-  if (playerHealth > 0) {
-  
-    window.alert("Welcome to Robot Gladiators! Round " + (i + 1));
-  
-    var pickedEnemyName = enemyNames[i];
-  
-    enemyHealth = 50;
-    
-    fight(pickedEnemyName);
-  }
-  else {
-   window.alert("You have lost your robot in battle! Game Over!");
-   break;
-  }
-}
-  //play again
-endGame();     
-};
-
-
-
 // function to end the entire game
 var endGame = function() {
   window.alert("The game has now ended. Let's see how you did!");
@@ -123,6 +94,92 @@ var endGame = function() {
     window.alert("Thank you for playing Robot Gladiators! Come back soon!");
   }
 }
+
+var shop = function() {
+  // ask player what they'd like to do
+  var shopOptionPrompt = window.prompt(
+    "would you like to REFIL your health, UPGRADE your attack, or LEAVE the shop? Please endter one: 'REFILL', 'UPGRADE', OR 'LEAVE' to make a choice."
+  );
+  switch (shopOptionPrompt) {
+    case "REFILL":
+    case "refill":
+      if (playerMoney>= 7) {
+      window.alert("Refilling player's health by 20 for 7 dollars.");
+  
+      // increase health and decrease money
+      playerHealth = playerHealth + 20;
+      playerMoney = playerMoney - 7;
+      }
+      else {
+        window.alert("You don't have enough money!");
+      }
+
+      break;
+    case "UPGRADE":  
+    case "upgrade":
+      if (playerMoney >= 7) {
+      window.alert("Upgrading player's attack by 6 for 7 dollars.");
+  
+      // increase attack and decrease money
+      playerAttack = playerAttack + 6;
+      playerMoney = playerMoney - 7;
+      }
+      else {
+        window.alert("You don't have enough money!");
+      }
+
+      break;
+    case "LEAVE":
+    case "leave":
+      window.alert("Leaving the store.");
+  
+      // do nothing, so function will end
+      break;
+    default:
+      window.alert("You did not pick a valid option. Try again.");
+  
+      // call shop() again to force player to pick a valid option
+      shop();
+      break;
+  }
+};
+
+// fight each enemy-robot by looping over them and fighting them one at a time
+var startGame = function() {
+    //reset player status
+    playerHealth = 100;
+    playerAttack = 100;
+    playerMoney = 10;
+    
+for (var i = 0; i < enemyNames.length; i++) {
+  if (playerHealth > 0) {
+  
+    window.alert("Welcome to Robot Gladiators! Round " + (i + 1));
+  
+    var pickedEnemyName = enemyNames[i];
+  
+    enemyHealth = 50;
+    
+    fight(pickedEnemyName);
+    if (playerHealth > 0 && i < enemyNames.length - 1) {
+      var storeConfirm = window.confirm("The fight is over, visit the store before the next round?")
+      
+      // if yes, take them toi the store function
+      if (storeConfirm) {
+        shop();
+      }
+      
+    }
+  }
+  else {
+   window.alert("You have lost your robot in battle! Game Over!");
+   break;
+  }
+
+}
+  //play again
+endGame();     
+};
 
 //start the game when the page loads
 startGame();
